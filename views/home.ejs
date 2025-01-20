@@ -8,13 +8,15 @@
     <%- include('./partials/nav') %>
     
     <div class="container mx-5 my-4 row row-cols-4 ">
+      <% if (blogs.length<=0) { %>
+        <h3>No blogs found </h3>
+      <% } %>
     <% blogs.forEach(blog => { %>
-      <div class="col">
+      <div class="col border-4">
         <div class="card" style="width: 18rem;">
           <img class="card-img-top" src=<%= blog.ImagePathUrl %> alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title"><%= blog.title %></h5>
-            <p class="card-text"><%= blog.body %></p>
             <a href="/blog/<%= blog._id %>" class="btn btn-primary">Read more</a>
           </div>
         </div>
