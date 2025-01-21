@@ -14,7 +14,7 @@
     <% blogs.forEach(blog => { %>
       <div class="col border-4">
         <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src=<%= blog.ImagePathUrl %> alt="Card image cap">
+          <img class="card-img-top" src=<%= blog.ImagePathUrl %> alt="Card image cap "loading="lazy">
           <div class="card-body">
             <h5 class="card-title"><%= blog.title %></h5>
             <a href="/blog/<%= blog._id %>" class="btn btn-primary">Read more</a>

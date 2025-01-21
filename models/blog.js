@@ -13,6 +13,10 @@ const BlogSchema=new Schema({
     ImagePathUrl:{
         type:String,
     },
+    cloudinaryPublicId:{
+        type:String
+
+    },
     CreatedBy:{
         type:Schema.Types.ObjectId,
         ref:'users'

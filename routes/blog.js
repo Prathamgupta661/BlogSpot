@@ -12,6 +12,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+
 router.get("/", (req, res) => {
   res.render("addblog", { user: req.user });
 });
@@ -43,14 +44,13 @@ router.post("/", upload.single("image"), async (req, res) => {
       file,
       {
         folder: "Blogspot",
-        fetch_format: "auto",
-        quality: "auto",
       }
     );
     const blog = await Blog.create({
       title,
       body,
       ImagePathUrl: cloudinaryresponse.secure_url,
+      cloudinaryPublicId: cloudinaryresponse.public_id,
       CreatedBy: req.user._id,
     });
     return res.redirect(`/blog/${blog._id}`);
@@ -58,6 +58,18 @@ router.post("/", upload.single("image"), async (req, res) => {
     console.log(error);
     res.redirect("/blog");
   }
+});
+
+router.get("/delete/:id", async (req, res) => {
+  try {
+    const blogdata=await Blog.findByIdAndDelete(req.params.id);
+    const result=await cloudinary.uploader.destroy(blogdata.cloudinaryPublicId,{invalidate:true});
+    console.log(result);
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
+  
 });
 
 router.post("/comment/:id", async (req, res) => {
