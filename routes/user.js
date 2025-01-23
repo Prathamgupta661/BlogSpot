@@ -16,7 +16,7 @@ router.post("/signup",async(req,res)=>{
         const {fullName,email,password}=req.body;
     await userModel.create({
         fullName,
-        email,
+        email:email.toLowerCase(),
         password
     })
     return res.redirect('/user/login')
@@ -30,7 +30,7 @@ router.post("/login",async(req,res)=>{
     const {email,password}=req.body;
 
     try {
-        const token=await userModel.passwordcheckerandauthentication(email,password)
+        const token=await userModel.passwordcheckerandauthentication(email.toLowerCase(),password)
 
         res.cookie('token',token).redirect('/')
     } catch (error) {
