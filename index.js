@@ -24,6 +24,20 @@ app.set('views',path.resolve('./views'))
 app.use("/user",userRouter)
 app.use("/blog",BlogRouter)
 
+
+const url='https://blogspot-zdoo.onrender.com/';
+const interval=30000;
+
+function relodwebsite(){
+    fetch(url).then((res)=>{
+        console.log("Reloaded")
+    }).catch((err)=>{
+        console.log(`Error: ${err}`)
+    })
+};
+
+setInterval(relodwebsite,interval);
+
 app.get('/',async(req,res)=>{
     const allblogs=await Blog.find({})
     res.render('home',{user:req.user,
